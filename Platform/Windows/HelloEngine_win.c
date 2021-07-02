@@ -15,11 +15,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 	WNDCLASSEX wc;
 
 	// 清除要使用的窗体类
-	ZeroMemeory(&wc, sizeof(WNDCLASSEX));
+	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 
 	// 使用必需的信息填充结构体
 	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_HEADRAW | CS_VREDRAW;
+	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = WindowProc;
 	wc.hInstance = hInstance;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLin
 	hWnd = CreateWindowEx(0,
 		_T("WindowClass1"),			// 窗体的名称
 		_T("Hello, GameEngine!"),	// 窗体的标题
-		WS_OVERLAPPENDWINDOW,		// 窗体样式
+		WS_OVERLAPPEDWINDOW,		// 窗体样式
 		300,						// 窗体的x坐标
 		300,						// 窗体的y坐标
 		500,						// 窗体的宽度
@@ -72,7 +72,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	switch (message)
 	{
 		// 当窗体被关闭时
-		case WM_DESTORY:
+		case WM_DESTROY:
 		{
 			// 关闭程序
 			PostQuitMessage(0);
