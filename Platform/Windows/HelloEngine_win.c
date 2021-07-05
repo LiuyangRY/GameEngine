@@ -71,6 +71,18 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	// 对给定的消息进行排序并找到需要执行的代码
 	switch (message)
 	{
+		case WM_PAINT:
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hWnd, &ps);
+			RECT rec = { 20, 20, 60, 80 };
+			HBRUSH brush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+
+			FillRect(hdc, &rec, brush);
+
+			EndPaint(hWnd, &ps);
+		}
+		break;
 		// 当窗体被关闭时
 		case WM_DESTROY:
 		{
