@@ -12,7 +12,7 @@ int main(void)
 	xcb_gcontext_t			background;
 	xcb_generic_event_t		*pEvent;
 	u_int32_t				mask = 0;
-	u_int32_t				values[2]
+	u_int32_t				values[2];
 	u_int8_t				isQuit = 0;
 
 	char title[] = "Hello, GameEngine!";
@@ -29,7 +29,7 @@ int main(void)
 
 	// 创建黑色的前景
 	foreground = xcb_generate_id(pConn);
-	mask = SCB_GC_FOREGROUND | XCB_GC_GRAPHICS_EXPOSURES;
+	mask = XCB_GC_FOREGROUND | XCB_GC_GRAPHICS_EXPOSURES;
 	values[0] = pScreen -> black_pixel;
 	values[1] = 0;
 	xcb_create_gc(pConn, foreground, window, mask, values);
@@ -51,7 +51,7 @@ int main(void)
 		window,							// 窗体编号
 		pScreen -> root,				// 父窗体
 		20, 20,							// x, y坐标
-		640， 480，						// 宽度，高度
+		640, 480,						// 宽度，高度
 		10,								// 边框宽度
 		XCB_WINDOW_CLASS_INPUT_OUTPUT,	// 类型
 		pScreen -> root_visual,			// 可视
@@ -72,11 +72,11 @@ int main(void)
 
 	xcb_flush(pConn);
 
-	while((pEvent = xcb_wait_from_event(pConn)) && !isQuit)
+	while((pEvent = xcb_wait_for_event(pConn)) && !isQuit)
 	{
 		switch (pEvent -> response_type & ~0x80)
 		{
-		case XCB_EXPOS:
+		case XCB_EXPOSE:
 			break;
 		case XCB_KEY_PRESS:
 			isQuit = 1;
